@@ -1,0 +1,70 @@
+- Read more tutorials on the supervisor and gen_server behaviours
+
+- Finish the printserver example:
+   + use a registered name for the server (see options to gen_server:start)
+   to enable a more convenient api, i.e.,
+   printserver:permission_to_print() instead of 
+printserver:permission_to_print(Server).
+
+   + implement the print server as a gen_server
+   
+   + make sure the printserver works for well-behaved clients
+
+   + what happens if a client fails after getting permission to print
+   and releasing the printer, i.e.:
+      printserver:permission_to_print(),
+      2 / 0,
+      printserver:release_printer().
+
+   + handle failing clients, i.e., if a client dies while it "locks" the
+   printserver, release the lock and proceed with the following client
+   in the printqueue.
+
+   Hints: monitor or link to clients from the server, and implement the
+   handle_info function in your printserver module
+   (see gen_server documentation).
+
+   Note that one can retrieve the pid of the calling process from the
+   From structure; a From is {pid(),Tag} (see gen_server documentation).
+
+   + Implement the terminate/2 function in the printserver to handle 
+termination
+   requests.
+        
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+- Implement the bank application as a gen_server (see previous emails for
+a specification).
+
+- Implement a supervisor for the bank application, to ensure that the
+bank server is restarted whenever it fails. Test that it works.
+Hint: you can for instance implement a new api call fail() in the bank
+to make the bank server crash.
+
+- Optional: package the bank as an Erlang application
+(read about applications in the Erlang documentation).
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+- ETS tables is an Erlang library which provides a facility for sharing
+data between processes, and which is used quite heavily in Erlang
+applications. Read about it in the Erlang documentation, and experiment
+with ETS tables.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+- Read about Erlang types and type checking using the dialyzer tool in
+the Erlang documentation. Add types to the bank application, and check it.
+Can you get rid of all the warnings? Are there type bugs not found
+by the type checker?
+
+To specify that a module implements a generic server one can for
+instance add the attribute -behaviour(gen_server) (and likewise
+-behaviour(supervisor) for supervisors).
+
+
+
+
